@@ -69,6 +69,7 @@ class AddUserCommand extends Command
         $this->entityManager = $em;
         $this->passwordEncoder = $encoder;
         $this->validator = $validator;
+       sadfdsaf
         $this->users = $users;
     }
 
