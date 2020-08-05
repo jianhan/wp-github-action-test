@@ -1,4 +1,9 @@
-on: [push]
+on:
+  push:
+    braches:
+      - release
+    tags:
+      - "*.*.*.*-rc.*"
 
 jobs:
   hello_world_job:
