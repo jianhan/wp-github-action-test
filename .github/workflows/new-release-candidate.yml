@@ -1,3 +1,4 @@
+name: New Release Candidate
 on:
   push:
     braches:
@@ -6,7 +7,15 @@ on:
       - "*.*.*.*-rc.*"
 
 jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: michaelw90/PHP-Lint@master
+
   merge-release-to-develop:
+    needs: lint
     runs-on: ubuntu-latest
     name: merge release to develop
     steps:
