@@ -13,9 +13,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: merge
-        uses: devmasx/merge-branch@v1.3.0
+        uses: everlytic/branch-merge@1.1.0
         with:
-          type: now
-          from_branch: release
-          target_branch: develop
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
+          source_ref: ${{ github.ref }}
+          target_branch: 'master'
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
