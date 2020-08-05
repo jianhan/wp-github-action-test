@@ -1,3 +1,4 @@
+name: New Release Candidate
 on:
   push:
     braches:
@@ -6,20 +7,24 @@ on:
       - "*.*.*.*-rc.*"
 
 jobs:
-  hello_world_job:
+
+  lint:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      # To use this repository's private action,
-      # you must check out the repository
-      - name: Checkout
+      - uses: actions/checkout@v2
+      - uses: michaelw90/PHP-Lint@master
+
+  merge-release-to-develop:
+    needs: lint
+    runs-on: ubuntu-latest
+    name: merge release to develop
+    steps:
+      - name: checkout
         uses: actions/checkout@v2
-      - name: Hello world action step
-        uses: ./.github/actions/hello-world
-        id: hello
+      - name: merge
+        uses: everlytic/branch-merge@1.1.0
         with:
-          who-to-greet: 'Mona the Octocat'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+          github_token: ${{ github.token }}
+          source_ref: ${{ github.ref }}
+          target_branch: 'develop'
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
