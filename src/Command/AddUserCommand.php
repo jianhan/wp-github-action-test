@@ -70,6 +70,7 @@ class AddUserCommand extends Command
         $this->passwordEncoder = $encoder;
         $this->validator = $validator;
        sadfdsaf
+       more typo
         $this->users = $users;
     }
 
