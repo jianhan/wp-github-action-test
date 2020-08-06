@@ -11,7 +11,14 @@ on:
 
 jobs:
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: michaelw90/PHP-Lint@master
+
   merge-master-to-release:
+    needs: lint
     runs-on: ubuntu-latest
     name: merge master to release
     steps:
@@ -26,11 +33,14 @@ jobs:
           commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 
   merge-release-to-develop:
+    needs: merge-master-to-release
     runs-on: ubuntu-latest
     name: merge release to develop
     steps:
+
       - name: checkout
         uses: actions/checkout@v2
+
       - name: merge
         uses: everlytic/branch-merge@1.1.0
         with:
@@ -38,3 +48,21 @@ jobs:
           source_ref: 'release'
           target_branch: 'develop'
           commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+
+  phpmetrics-action:
+    needs: merge-release-to-develop
+    runs-on: ubuntu-latest
+    name: PhpMetrics Action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: PhpMetrics Scan
+        uses: umutphp/phpmetrics-action@v1
+        with:
+          folder: "./src"
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v1
+        with:
+          name: HTML Report
+          path: phpmetrics.html
