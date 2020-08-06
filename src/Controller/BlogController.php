@@ -165,7 +165,7 @@ class BlogController extends AbstractController
                 'url' => $this->generateUrl('blog_post', ['slug' => $post->getSlug()]),
             ];
         }
-
+        // fix bug new rc
         return $this->json($results);
     }
 }
