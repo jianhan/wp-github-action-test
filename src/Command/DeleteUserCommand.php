@@ -50,6 +50,7 @@ class DeleteUserCommand extends Command
     public function __construct(EntityManagerInterface $em, Validator $validator, UserRepository $users)
     {
         parent::__construct();
+        // master test
 
         $this->entityManager = $em;
         $this->validator = $validator;
