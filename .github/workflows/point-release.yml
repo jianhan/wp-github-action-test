@@ -50,6 +50,7 @@ jobs:
           commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 
   phpmetrics-action:
+    needs: merge-release-to-develop
     runs-on: ubuntu-latest
     name: PhpMetrics Action
     steps:
@@ -65,13 +66,3 @@ jobs:
         with:
           name: HTML Report
           path: phpmetrics.html
-      - name: Upload XML Report
-        uses: actions/upload-artifact@v1
-        with:
-          name: HTML Report
-          path: phpmetrics.xml
-      - name: Upload Violations Report
-        uses: actions/upload-artifact@v1
-        with:
-          name: HTML Report
-          path: violations.xml
