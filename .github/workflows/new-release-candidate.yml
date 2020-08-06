@@ -1,4 +1,7 @@
-name: New Release Candidate
+name: New Release Candidate Workflow
+
+# only trigger on release branch and tag patterns matches
+# *.*.*.*-rc.*
 on:
   push:
     braches:
