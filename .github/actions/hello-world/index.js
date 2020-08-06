@@ -23,12 +23,8 @@ async function run() {
         const myToken = core.getInput('github-token');
         const octokit = github.getOctokit(myToken)
 
-        octokit.repos.merge({
-            owner: 'jianhan',
-            repo: 'wp-github-action-test',
-            base: 'master',
-            head: 'release'
-        });
+        octokit.repos.merge();
+        octokit.repos.merge();
 
 
     } catch (error) {
