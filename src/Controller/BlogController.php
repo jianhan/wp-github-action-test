@@ -116,7 +116,7 @@ class BlogController extends AbstractController
 
             return $this->redirectToRoute('blog_post', ['slug' => $post->getSlug()]);
         }
-
+        // my feature 1
         return $this->render('blog/comment_form_error.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
