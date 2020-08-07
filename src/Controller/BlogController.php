@@ -134,7 +134,7 @@ class BlogController extends AbstractController
     public function commentForm(Post $post): Response
     {
         $form = $this->createForm(CommentType::class);
-
+        // feature 2
         return $this->render('blog/_comment_form.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
