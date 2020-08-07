@@ -35,6 +35,8 @@ class UserController extends AbstractController
      */
     public function edit(Request $request): Response
     {
+
+        // feature 1 rc release
         $user = $this->getUser();
 
         $form = $this->createForm(UserType::class, $user);
